@@ -45,18 +45,12 @@ public class ApiController {
     @PreAuthorize("permitAll()")
     public ResponseEntity login(@RequestBody LoginForm form){
         // Authentication: Xác thực
-        Authentication authentication = null;
-        try{
-            authentication = authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(
-                            form.getUsername(),
-                            form.getPassword()
-                    )
-            );
-        }catch(Exception e){
-            e.printStackTrace();
-        }
-        System.out.println("login run");
+        Authentication authentication = authenticationManager.authenticate(
+            new UsernamePasswordAuthenticationToken(
+                form.getUsername(),
+                form.getPassword()
+            )
+        );
 
         // nếu nó chạy đc ra tới đây => user này có thật => genarate token
         SecurityContextHolder.getContext().setAuthentication(authentication);
